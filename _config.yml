@@ -1,0 +1,14 @@
+title: HPC, ML, Big Data Analytics
+description: 
+show_downloads: false
+
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include:
+  - README.md
+
+
+theme: jekyll-theme-dinky
