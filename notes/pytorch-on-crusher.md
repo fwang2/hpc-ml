@@ -115,12 +115,15 @@ Finally show time:
 ```
 python setup.py install
 ```
-It didn't go far with default Cray build environment on Crusher: it stopped at cmake configuration generation. 
 
+### Using Cray PrgEnv
 ```
-module load PrgEnv-amd
-python setup.py install
+module load PrgEnv-cray
+CC=cc CXX=CC python setup.py build
 ```
+
+`cc` and `CC` are both Cray compiler wrappers.
+
 
 ### error 1
 ```
