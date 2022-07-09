@@ -1,4 +1,8 @@
-my notes on ML/DL and HPC.
+---
+layout: default
+---
+
+My notes on ML/DL and HPC: 
 
 - [The Setup](#the-setup)
 - [Regression](#regression)
@@ -6,6 +10,8 @@ my notes on ML/DL and HPC.
 - [Clustering](#clustering)
 - [Deep Learning](#deep-learning)
 - [Tools](#tools)
+
+---
 
 ## The Setup
 
