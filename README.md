@@ -1,15 +1,19 @@
-# hpc-ml 
-
 my notes on ML/DL and HPC.
 
-## Running environment
+- [The Setup](#the-setup)
+- [Regression](#regression)
+- [Dimension Reduction](#dimension-reduction)
+- [Clustering](#clustering)
+- [Deep Learning](#deep-learning)
+- [Tools](#tools)
 
-    conda create --name deep python=python38
-    conda install jupyter
-    pip install -U \
-        tensorflow keras scikit-learn matplotlib \
-    conda install pytorch torchvision -c pytorch # check pytorch page for instrucutions
-    
+## The Setup
+
+* [pytorch on Frontier](notes/pytorch-on-crusher.md)
+* [DeepSpeed on Frontier](notes/DeepSpeed-on-crusher.md)
+* [DeepSpeed on Summit](notes/DeepSpeed-on-Summit.md)
+* [Jupyter on Summit](JupyterOnSummit.md). The better and alternative path is to use Slate, unless you need multiple GPU setup.
+
 ## Regression
 
 * [Linear Regression](Regression/Linear-Regression.ipynb)
@@ -40,9 +44,6 @@ my notes on ML/DL and HPC.
 * [Transferred Learning](DL/transfer_learning.md)
 * [Federated Learning](DL/federated_learning.md)
 
-## Scalable Learning
-
-* [Running Jupyter on Summit](JupyterOnSummit.md)
 
 ## Tools
 

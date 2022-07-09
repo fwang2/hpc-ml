@@ -33,12 +33,16 @@ cp * /autofs/nccs-svm1_sw/aaims/crusher/anaconda3/envs/torch/lib/python3.8/site-
 
 We can now do `python setup.py bdist_wheel`
 
-However, no extension will be built. The extension build is problematic:
+However, no extension will be built. 
+
+
 
 For example:
 
 ```
-DS_BUILD_CPU_ADAM=1 python setup.py install
+export __HIP_PLATFORM_AMD__
+export HCC_AMDGPU_TARGET=gfx90a
+export ROCM_HOME=$ROCM_PATH
+DS_BUILD_FUSED_LAMB=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_CPU_ADAM=1  DS_BUILD_TRANSFORMER=1 DS_BUILD_STOCHASTIC_TRANSFORMER=1  DS_BUILD_UTILS=1 python setup.py bdist_wheel
 ```
-For a list of extensions, refer to DeepSpeed site.
 
