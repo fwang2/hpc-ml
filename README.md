@@ -46,13 +46,15 @@ My notes on ML/DL and HPC:
 * [Activation Functions](DL/activation_functions.ipynb)
     * [Look into softmax and cross-entropy in PyTorch context](DL/softmax.ipynb)
 * [CNN](DL/CNN.ipynb)
-* [RNN and LSTM](DL/RNN.ipynb)
 * [Transferred Learning](DL/transfer_learning.md)
 * [Federated Learning](DL/federated_learning.md)
 
 ## NLP 
 
-* [Understanding LSTM](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+### RNN and LSTM
+* [RNN and LSTM](DL/RNN.ipynb)
+* [Unreasonable effectiveness of RNN](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+* [Understanding LSTM, Colah's Blog](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
 ## Tools
 
