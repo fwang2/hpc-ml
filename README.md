@@ -52,7 +52,7 @@ My notes on ML/DL and HPC:
 ## NLP 
 
 ### RNN and LSTM
-* [RNN and LSTM](DL/RNN.ipynb)
+* [My RNN Notes](DL/RNN.ipynb)
 * [Unreasonable effectiveness of RNN](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
 * [Understanding LSTM, Colah's Blog](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
