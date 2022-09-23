@@ -50,6 +50,9 @@ My notes on ML/DL and HPC:
 * [Transferred Learning](DL/transfer_learning.md)
 * [Federated Learning](DL/federated_learning.md)
 
+## NLP 
+
+* [Understanding LSTM](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
 ## Tools
 
