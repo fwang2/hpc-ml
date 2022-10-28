@@ -1,25 +1,30 @@
----
-layout: default
----
+# hpc-ml 
 
-My notes on ML/DL and HPC: 
+my notes on ML/DL and HPC.
 
-- [The Setup](#the-setup)
-- [Regression](#regression)
-- [Dimension Reduction](#dimension-reduction)
-- [Clustering](#clustering)
-- [Deep Learning](#deep-learning)
-- [Tools](#tools)
+## Running environment (JupyterHub at OLCF)
 
----
+* First login (http://jupyter.olcf.ornl.gov), and launch a terminal:
 
-## The Setup
+```
+        # create a spec based on current BASE conda environment
+        conda list --explicit > spec-file.txt
 
-* [pytorch on Frontier](notes/pytorch-on-crusher.md)
-* [DeepSpeed on Frontier](notes/DeepSpeed-on-crusher.md)
-* [DeepSpeed on Summit](notes/DeepSpeed-on-Summit.md)
-* [Jupyter on Summit](JupyterOnSummit.md). The better and alternative path is to use Slate, unless you need multiple GPU setup.
+        # create a new environment, which will persist
+        conda create -p /ccs/proj/gen150/fwang2/mistral --file spec-file.txt 
 
+        # other customization if needed, then activate 
+        source activate /ccs/proj/gen150/fwang2/mistral
+```
+
+* Make newly created environment visiable
+
+```
+        python -m ipykernel install --user --name mistral --display-name mistral
+```
+
+Now, when you start a new launcher, you should see the new kernel "mistral" listed.
+  
 ## Regression
 
 * [Linear Regression](Regression/Linear-Regression.ipynb)
@@ -46,15 +51,13 @@ My notes on ML/DL and HPC:
 * [Activation Functions](DL/activation_functions.ipynb)
     * [Look into softmax and cross-entropy in PyTorch context](DL/softmax.ipynb)
 * [CNN](DL/CNN.ipynb)
+* [RNN and LSTM](DL/RNN.ipynb)
 * [Transferred Learning](DL/transfer_learning.md)
 * [Federated Learning](DL/federated_learning.md)
 
-## NLP 
+## Scalable Learning
 
-### RNN and LSTM
-* [My RNN Notes](DL/RNN.ipynb)
-* [Unreasonable effectiveness of RNN](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
-* [Understanding LSTM, Colah's Blog](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+* [Running Jupyter on Summit](JupyterOnSummit.md)
 
 ## Tools
 

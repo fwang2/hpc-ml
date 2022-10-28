@@ -20,6 +20,7 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c 
 conda install graphviz jupyterlab -c conda-forge -c defaults
 pip install torchviz
 conda install tensorboard jupyterlab_widgets jupyter_telemetry jupyterhub-base jupyter-server-proxy jupyterhub jupyter_bokeh
+conda install scikit-learn pandas matplotlib
 python -m ipykernel install --user --name deep-py38 --display-name deep-py38
 ```
 
