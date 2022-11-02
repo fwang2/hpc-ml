@@ -37,24 +37,25 @@ My notes on ML/DL and HPC:
 * [DBSCAN](Clustering/DBSCAN.ipynb)
   
 ## Deep Learning
-* [Gradient Descent](DL/gd-general.ipynb)
-* [Compute Graph, Back Propagation](DL/autograd.ipynb)
-* [Neural Network Concept](DL/ANN-basics.ipynb)
-* [2-Layer Gradient Descent](DL/gd_2_layer.ipynb)
-* [3-Layer Gradient Descent](DL/gd_3_layer.ipynb)
-* [Regularization and dropout](DL/regularization.ipynb)
-* [Activation Functions](DL/activation_functions.ipynb)
+* [Gradient Descent](deep/gd-general.ipynb)
+* [Compute Graph, Back Propagation](deep/autograd.ipynb)
+* [Neural Network Concept](deep/ANN-basics.ipynb)
+* [2-Layer Gradient Descent](deep/gd_2_layer.ipynb)
+* [3-Layer Gradient Descent](deep/gd_3_layer.ipynb)
+* [Regularization and dropout](deep/regularization.ipynb)
+* [Activation Functions](deep/activation_functions.ipynb)
     * [Look into softmax and cross-entropy in PyTorch context](DL/softmax.ipynb)
-* [CNN](DL/CNN.ipynb)
-* [Transferred Learning](DL/transfer_learning.md)
-* [Federated Learning](DL/federated_learning.md)
+* [CNN](deep/CNN.ipynb)
+* [Transferred Learning](deep/transfer_learning.md)
+* [Federated Learning](deep/federated_learning.md)
 
 ## NLP 
 
 ### RNN and LSTM
-* [My RNN Notes](DL/RNN.ipynb)
+* [My RNN Notes](deep/RNN.ipynb)
 * [Unreasonable effectiveness of RNN](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
-* [Understanding LSTM, Colah's Blog](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+* [Understanding LSTM, Colah's Blog](https://colah.github.io/posts/2015-08-Understanding-LSTMs/), there is accompanying [Krish's explaination](shorturl.at/bdeTX).
+* [Word embedding](shorturl.at/BIL25)
 
 ## Tools
 
