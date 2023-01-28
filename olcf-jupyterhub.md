@@ -1,6 +1,14 @@
 
+This is to create a Conda environment `deep-py38` for use on OLCF jupyterhub. It is located at `/ccs/proj/gen150/fwang2/deep-py38`.
 
-## Set up 
+- [Create new Conda environment](#create-new-conda-environment)
+- [Make new environment visible via Jupyterhub](#make-new-environment-visible-via-jupyterhub)
+- [PATH fix](#path-fix)
+
+
+
+
+## Create new Conda environment
 
 Start a terminal within Jupyter session on through OLCF jupyterhub.
 
@@ -9,7 +17,7 @@ Start a terminal within Jupyter session on through OLCF jupyterhub.
 conda create -p /ccs/proj/gen150/fwang2/deep-py38 python=3.8
 source activate /ccs/proj/gen150/fwang2/deep-py38
 conda install cudatoolkit=11.1 cudnn -c nvidia -c conda-forge -c defaults
-conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c nvidia
+conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c nvidia
 conda install graphviz jupyterlab -c conda-forge -c defaults
 pip install torchviz
 conda install tensorboard jupyterlab_widgets jupyter_telemetry jupyterhub-base jupyter-server-proxy jupyterhub jupyter_bokeh
@@ -17,11 +25,11 @@ conda install scikit-learn pandas matplotlib
 python -m ipykernel install --user --name deep-py38 --display-name deep-py38
 ```
 
-
+## Make new environment visible via Jupyterhub
 
 After activating, to make your created environment visible in JupyterLab, run 
 
-    python -m ipykernel install --user --name deep --display-name deep 
+    python -m ipykernel install --user --name deep-38 --display-name deep-py38 
     
 A kernelspec is created in your /ccs/home/<YOUR_UID>/.local/share/jupyter directory which JupyterLab reads to see which custom environments are available for it to use.
 
