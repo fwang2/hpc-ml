@@ -23,7 +23,7 @@ export no_proxy='localhost,127.0.0.0/8,*.ccs.ornl.gov
 
 ## Fast compression
 
-It appears to be faster than the default `z` option. Decompression is even more so. The ratio for plain text is roughly 3:1
+It appears to be faster than the default `z` option. Decompression is even more so. The ratio for plain text is roughly 2:1
 
 ```
  tar cvf - core-EN | lz4 > core-EN.tar.lz4
