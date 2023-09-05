@@ -1,7 +1,6 @@
 
-# pytorch on Frontier
 
-- [pytorch on Frontier](#pytorch-on-frontier)
+- [Build from source](#build-from-source)
   - [prep Frontier modules](#prep-frontier-modules)
   - [module output on Frontier](#module-output-on-frontier)
   - [setup miniconda3](#setup-miniconda3)
@@ -9,11 +8,10 @@
     - [Build options: see `setup.py`](#build-options-see-setuppy)
     - [regenerate CMAKE build files](#regenerate-cmake-build-files)
     - [Kineto and roctracer.h problem](#kineto-and-roctracerh-problem)
-  - [DeepSpeed](#deepspeed)
-  - [GPTNeoX](#gptneox)
-  - [Verification](#verification)
+  - [Build DeepSpeed](#build-deepspeed)
+  - [Install GPTNeoX](#install-gptneox)
 
-
+# Build from source
 
 ## prep Frontier modules
 
@@ -93,7 +91,7 @@ So the easy workaround is:
 set(ROCM_SOURCE_DIR /opt/rocm-5.1.0)
 ```
 
-## DeepSpeed
+## Build DeepSpeed
 
 ```
 git clone https://github.com/microsoft/DeepSpeed
@@ -101,7 +99,7 @@ DS_BUILD_FUSED_LAMB=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_TRANSFORMER=1 DS_BUILD_STOC
 python setup.py install
 ```
 
-## GPTNeoX
+## Install GPTNeoX
 
 ```
 pip install shortuuid # missed from
@@ -110,6 +108,5 @@ pip install -r requirements/requirements.txt
 pip install -r requirements/requirements-wandb.txt
 pip install -r requirements/requirements-tensorboard.txt
 ```
-## Verification
 
 
