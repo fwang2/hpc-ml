@@ -13,8 +13,9 @@ using %env OPENAI_API_KEY=blablah format
 ## Required packages
 
 ```
-pip install langchain openai faiss-cpu tiktoken docarray
-
+pip install langchain openai faiss-cpu tiktoken docarray ipywidgets \
+    sentence-transformers \
+    chromadb \
 ```
 
 * docarray: data representation for machine learning tasks
@@ -50,3 +51,9 @@ langchain-core==0.0.9
 transformers==4.32.1
 huggingface_hub==0.17.3
 ```
+
+
+## embeddings
+
+https://datasciencedojo.com/blog/embeddings-and-llm
+
