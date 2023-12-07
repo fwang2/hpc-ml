@@ -1,0 +1,9 @@
+scheduling policy of frontier is that in a simple batch queue system, jobs run in a first-in, first-out (FIFO) order.
+ 
+Frontier is a HPE Cray EX supercomputer located at the Oak Ridge Leadership Computing Facility. 
+ 
+Each Frontier compute node consists of [1x] 64-core AMD “Optimized 3rd Gen EPYC” CPU (with 2 hardware threads per physical core) with access to 512 GB of DDR4 memory. Each node also contains [4x] AMD MI250X, each with 2 Graphics Compute Dies (GCDs) for a total of 8 GCDs per node.
+ 
+system interconnect of frontier is that the Frontier nodes are connected with [4x] HPE Slingshot 200 Gbps (25 GB/s) NICs providing a node-injection bandwidth of 800 Gbps (100 GB/s).
+
+File systems of frontier is that Frontier is connected to Orion, a parallel filesystem based on Lustre and HPE ClusterStor, with a 679 PB usable namespace (/lustre/orion/).
