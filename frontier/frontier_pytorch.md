@@ -1,112 +1,112 @@
 
 
-- [Build from source](#build-from-source)
-  - [prep Frontier modules](#prep-frontier-modules)
-  - [module output on Frontier](#module-output-on-frontier)
-  - [setup miniconda3](#setup-miniconda3)
-  - [build pytorch](#build-pytorch)
-    - [Build options: see `setup.py`](#build-options-see-setuppy)
-    - [regenerate CMAKE build files](#regenerate-cmake-build-files)
-    - [Kineto and roctracer.h problem](#kineto-and-roctracerh-problem)
-  - [Build DeepSpeed](#build-deepspeed)
-  - [Install GPTNeoX](#install-gptneox)
+## On rocm/pytorch compatibility
 
-# Build from source
+![alt text](frontier_rocmTorch_table.png)
 
-## prep Frontier modules
+
+## Basic environment setup
 
 ```
-module load PrgEnv-gnu
-module load gcc/10.3.0
-module load rocm/5.1.0
-module load craype-x86-trento
+ROCM_VER=6.0.0
+module load PrgEnv-gnu/8.5.0
+module load rocm/6.0.0
+module load gcc-native/12.3
+module load craype-accel-amd-gfx90a
+module load cmake
+module load miniforge3/23.11.0-0
+module unload darshan-runtime
 export HCC_AMDGPU_TARGET=gfx90a
 export PYTORCH_ROCM_ARCH=gfx90a
-export ROCM_SOURCE_DIR=/opt/rocm-5.1.0
-export CRAY_CPU_TARGET=x86_64 # just to remove warning noise
-```
-## module output on Frontier
-
-```
-Currently Loaded Modules:
-  1) libfabric/1.15.2.0   4) cray-dsmml/0.2.2        7) gcc/10.3.0             10) DefApps/default    13) craype-accel-amd-gfx90a
-  2) craype-network-ofi   5) cray-libsci/22.12.1.1   8) darshan-runtime/3.4.0  11) cray-mpich/8.1.23  14) craype-x86-trento
-  3) craype/2.7.19        6) PrgEnv-gnu/8.3.3        9) hsi/default            12) rocm/5.1.0
+export ROCM_HOME=/opt/rocm-${ROCM_VER}
+export CC=cc
+export CXX=CC
 ```
 
-Note: One of the module between `craype-x86-trento` and `craype-accel-amd-gfx90a` fixed a linking problem. My guess is the former. 
 
-## setup miniconda3
-
-```
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash ./Miniconda3-latest-Linux-x86_64.sh -b -p miniconda
-conda create -n pytorch python=3.8
-conda active pytorch
-pip install -r requirements.txt
-```
-
-## build pytorch
+## conda and mpi4py setup
 
 ```
-git clone --recursive -b IFU-master-2022-11-22 https://github.com/ROCmSoftwarePlatform/pytorch
-python tools/amd_build/build_amd.py
-USE_KINETO=0 USE_ROCM=1 MAX_JOBS=4 python setup.py bdist_wheel 2>&1 | tee output
+conda create -p /sw/aaims/frontier/rocm600-pt230 \
+    python=3.10 numpy=1 -c conda-forge
+
+source activate /sw/aaims/frontier/rocm600-pt230
+pip install pyyaml typing_extensions ninja packaging
+
+# Optional: install mpi4py
+MPICC="cc -shared" pip install --no-cache-dir --no-binary=mpi4py mpi4py
 ```
 
-### Build options: see `setup.py`
+## Build pytorch
 
 ```
-USE_KINETO=0 # disable profiler, ask for roctracer.h
-```
-### regenerate CMAKE build files
+TORCH_VER=release/2.3-frontier
+git clone --recursive -b ${TORCH_VER} \
+    https://github.com/michael-sandoval/pytorch
 
-This will trigger a rebuild for the changed configuration.
+cd pytorch
 
-```
-cd pytorch/build
-rm CMakeCache.txt
-```
-To remove previous build as well:
+# redundant
+#git submodule init
+#git submodule update
 
-```
-python setup.py clean
-```
-### Kineto and roctracer.h problem
+ 
+# If using GCC12 to build torch:
+export CFLAGS=" -Wno-error=maybe-uninitialized -Wno-error=uninitialized -Wno-error=restrict -Wno-error=nonnull"
+export CXXFLAGS=" -Wno-error=maybe-uninitialized -Wno-error=uninitialized -Wno-error=restrict -Wno-error=nonnull"
+export BUILD_TEST=OFF
 
-Kineto requires roctracer, which fails in rocm 5.1.0
 
-```
-if (NOT ROCM_SOURCE_DIR)
-    set(ROCM_SOURCE_DIR "$ENV{ROCM_SOURCE_DIR}")
-    message(INFO " ROCM_SOURCE_DIR = ${ROCM_SOURCE_DIR}")
-endif()
-```
+# Generate HIP files
+python3 tools/amd_build/build_amd.py
 
-For reason unknown at this point, the `ROCM_SOURCE_DIR` is still set as `/opt/rocm` instead of `/opt/rocm-5.1.0` even though the environment variable is set.
 
-So the easy workaround is:
+# Set the PyTorch build version
+export PYTORCH_BUILD_VERSION="2.3.0"
+export PYTORCH_BUILD_NUMBER=1
 
-```
-set(ROCM_SOURCE_DIR /opt/rocm-5.1.0)
-```
+ 
+# Point libkineto away from "/opt/rocm" to "/opt/rocm-x.y.z"
+cp ./frontier_fixes/third_party/kineto/libkineto/CMakeLists.txt \
+    ./third_party/kineto/libkineto/CMakeLists.txt
 
-## Build DeepSpeed
+# Fix "rocm-core/rocm_version.h" reference post HIP conversion (ONLY WHEN USING ROCm < 6.0.0)
+<!-- cp ./frontier_fixes/aten/src/ATen/hip/tunable/TunableGemm.h \
+    ./aten/src/ATen/hip/tunable/TunableGemm.h -->
 
-```
-git clone https://github.com/microsoft/DeepSpeed
-DS_BUILD_FUSED_LAMB=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_TRANSFORMER=1 DS_BUILD_STOCHASTIC_TRANSFORMER=1  DS_BUILD_UTILS=1 python setup.py bdist_wheel
-python setup.py install
+# Build PyTorch
+USE_ROCM=1 USE_CUDA=OFF USE_NVCC=OFF BUILD_CAFFE2_OPS=0 ROCM_SOURCE_DIR="/opt/rocm-${ROCM_VER}" MAX_JOBS=8 python setup.py bdist_wheel
+ 
 ```
 
-## Install GPTNeoX
+After compilation, I have:
 
 ```
-pip install shortuuid # missed from
-git clone https://github.com/EleutherAI/gpt-neox.git
-pip install -r requirements/requirements.txt
-pip install -r requirements/requirements-wandb.txt
-pip install -r requirements/requirements-tensorboard.txt
+dist/torch-2.3.0-cp310-cp310-linux_x86_64.whl
 ```
 
+## Verify
+
+```
+pip install dist/*.whl
+
+```
+
+```
+>>> import torch
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/lustre/orion/stf218/proj-shared/fwang2/pytorch/torch/__init__.py", line 546, in <module>
+    raise ImportError(textwrap.dedent('''
+ImportError: Failed to load PyTorch C extensions:
+    It appears that PyTorch has loaded the `torch/_C` folder
+    of the PyTorch repository rather than the C extensions which
+    are expected in the `torch._C` namespace. This can occur when
+    using the `install` workflow. e.g.
+        $ python setup.py install && python -c "import torch"
+
+    This error can generally be solved using the `develop` workflow
+        $ python setup.py develop && python -c "import torch"  # This should succeed
+    or by running Python from a different directory.
+```
 
