@@ -65,6 +65,11 @@ Now, when you start a new launcher, you should see the new kernel "mistral" list
 * [Word embedding](shorturl.at/BIL25)
 * [Running Jupyter on Summit](JupyterOnSummit.md)
 
+
+## Transformer
+
+* [Transformer from scratch](https://e2eml.school/transformers.html)
+
 ## Tools
 
 * [numpy](tools/numpy.ipynb), [matplotlib](tools/matplotlib.ipynb)
