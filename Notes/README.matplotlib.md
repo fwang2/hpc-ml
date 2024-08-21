@@ -1,3 +1,8 @@
+
+## setup matplotlib
+
+
+```
 %matplotlib inline
 import numpy as np
 import pandas as pd
@@ -11,4 +16,5 @@ mpl.rcParams['font.family']='monospace'
 mpl.rcParams['font.monospace']='Fira Code'
 mpl.rcParams['font.size']=14.0
 mpl.rcParams['figure.figsize']=[8,6]
+```
 
